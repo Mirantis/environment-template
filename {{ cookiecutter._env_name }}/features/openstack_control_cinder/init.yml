@@ -2,7 +2,7 @@ parameters:
   salt:
     control:
       size:
-        openstack.controll:
+        openstack.control:
           cpu: 8
           disk_profile: small_two_disks
           net_profile: default
