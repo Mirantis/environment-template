@@ -1,0 +1,16 @@
+parameters:
+  salt:
+    control:
+      size:
+        openstack.controll:
+          cpu: 8
+          disk_profile: small_two_disks
+          net_profile: default
+          ram: 32768
+  virt:
+    disk:
+      small_two_disks:
+        - system:
+            size: 50000
+        - cinder-volume:
+            size: 50000
