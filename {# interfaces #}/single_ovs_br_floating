@@ -1,0 +1,28 @@
+{#- Public network. For gateway nodes and computes with dvr #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                mtu: ${_param:interface_mtu}
+                proto: manual
+                type: eth
+              br-floating:
+                enabled: true
+                type: ovs_bridge
+                mtu: ${_param:interface_mtu}
+              float-to-ex:
+                enabled: true
+                type: ovs_port
+                mtu: ${_param:interface_mtu}
+                bridge: br-floating
+              br-ex:
+                enabled: true
+                type: bridge
+                mtu: ${_param:interface_mtu}
+                address: ${_param:external_address}
+                netmask: 255.255.255.0
+                use_interfaces:
+                - {{ interface_name }}
+                use_ovs_ports:
+                - float-to-ex
