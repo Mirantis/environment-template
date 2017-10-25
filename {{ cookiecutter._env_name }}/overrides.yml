@@ -9,6 +9,7 @@ classes:
 #    foo: bar
 parameters:
   _param:
+    salt_api_password_hash: $6$V7O4vDAF$1FYwutKk53WFY314nq5IshabL5YXMuYklGglD7/Toj9bzCcgHTgudxhdeexmE3jf21lZPLmXy9K5mwzGyFbQt1
     apt_mk_version: stable  # This will be replaced with REPOSITORY_SUITE env variable
   openssh:
     server:
