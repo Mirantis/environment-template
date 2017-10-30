@@ -1,0 +1,9 @@
+{#- DPDK interface params for vrouter         #}
+{#- Requires:                                 #}
+{#-   _param:compute_vrouter_dpdk_mac_address #}
+{#-   _param:compute_vrouter_dpdk_pci         #}
+              # {{ interfaces_role }}
+              {%- for interface_name, interface in interfaces.items() %}
+{{- set_param('compute_vrouter_dpdk_pci', interface['dpdk_pci']) }}
+{{- set_param('compute_vrouter_dpdk_mac_address', interface['dpdk_mac']) }}
+              {%- endfor %}

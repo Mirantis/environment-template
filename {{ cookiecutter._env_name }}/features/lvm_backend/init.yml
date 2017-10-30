@@ -1,0 +1,31 @@
+#parameters:
+#  linux:
+#    storage:
+#      lvm:
+#        cinder-volumes:
+#          enabled: true
+#          devices:
+#            - /dev/vdb
+
+classes:
+- system.cinder.volume.single
+- system.cinder.volume.notification.messagingv2
+
+parameters:
+  _param:
+    cinder_lvm_devices: [ "/dev/sdb" ]
+  linux:
+    storage:
+      lvm:
+        cinder-vg:
+          enabled: true
+          name: cinder-volumes
+          devices: ${_param:cinder_lvm_devices}
+  cinder:
+    volume:
+      default_volume_type: lvm-driver
+      backend:
+        lvm-driver:
+          engine: lvm
+          type_name: lvm-driver
+          volume_group: cinder-volumes
