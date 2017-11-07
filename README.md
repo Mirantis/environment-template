@@ -18,7 +18,7 @@ Use reclass_tools from [1] to render the template:
 ```
 virtualenv venv-reclass
 . venv-reclass/bin/activate
-pip install git+http://github.com/Mirantis/reclass-tools
+pip install git+http://github.com/dis-xcom/reclass-tools
 ```
 
 <env_name> : any name for newly created environment model
@@ -33,7 +33,7 @@ reclass-tools render -e <env_name> -t <path_to_template> -o <destination_path> -
 
 To attach the environment model to any cluster, use the instructions from [1]
 
-[1] https://github.com/Mirantis/reclass_tools
+[1] https://github.com/dis-xcom/reclass_tools
 
 
 Template architecture
