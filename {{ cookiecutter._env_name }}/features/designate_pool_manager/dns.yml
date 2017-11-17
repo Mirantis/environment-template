@@ -1,0 +1,34 @@
+classes:
+- system.powerdns.server.single
+
+parameters:
+  powerdns:
+    server:
+      api:
+          enabled: True
+          key: ${_param:designate_pdns_api_key}
+      axfr_ips:
+          ${_param:powerdns_axfr_ips}
+      bind:
+          address: ${_param:single_address}
+      overwrite_supermasters: True
+      supermasters:
+          ${_param:powerdns_supermasters}
+      webserver:
+          enabled: True
+          address: ${_param:single_address}
+          password: ${_param:powerdns_webserver_password}
+          port: ${_param:powerdns_webserver_port}
+  linux:
+    system:
+      package:
+        python-msgpack:
+          version: latest
+    network:
+      interface:
+        ens4:
+          enabled: true
+          type: eth
+          proto: static
+          address: ${_param:single_address}
+          netmask: 255.255.255.0

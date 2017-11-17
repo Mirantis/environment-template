@@ -11,6 +11,8 @@ parameters:
         - ${_param:openstack_control_node03_address}
         - 127.0.0.1
   designate:
+    worker:
+      enabled: ${_param:designate_worker_enabled}
     server:
       pools:
         default:

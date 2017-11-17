@@ -33,6 +33,7 @@ parameters:
       api_token: ${_param:designate_pdns_api_key}
       api_endpoint: ${_param:designate_pdns_api_endpoint}
     designate_version: ${_param:openstack_version}
+    designate_worker_enabled: true
     designate_service_host: ${_param:openstack_control_address}
     mysql_designate_password: {{ password(16) }}
     keystone_designate_password: {{ password(16) }}
