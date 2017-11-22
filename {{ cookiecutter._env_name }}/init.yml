@@ -1,9 +1,8 @@
-{# 'infra_config_classes' list object is dynamically generated from 'roles' to add on the cfg node #}
+{#- 'infra_config_classes' list object is dynamically generated from 'roles' to add on the cfg node #}
 {%- set infra_config_classes = [] %}
-{# 'global_metadata' is a global collection of objects shared between nodes #}
+{#- 'global_metadata' is a global collection of objects shared between nodes #}
 {%- set global_metadata = {} %}
 {%- set common_roles = ['_linux_network_interface', '_metadata_process', '_overrides'] %}
-
 parameters:
   _param:
     _esc: $
