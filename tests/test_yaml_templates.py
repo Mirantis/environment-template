@@ -8,44 +8,6 @@ import yaml
 from reclass_tools import render
 
 
-inventory = """nodes:
-    # Physical nodes
-
-    kvm01.mcp11-ovs-dpdk.local:
-      reclass_storage_name: infra_kvm_node01
-      roles:
-      - infra_kvm
-      - linux_system_codename_xenial
-      interfaces:
-        enp3s0f0:
-          role: single_mgm
-        enp3s0f1:
-          role: bond0_ab_ovs_vlan_ctl
-
-    kvm02.mcp11-ovs-dpdk.local:
-      reclass_storage_name: infra_kvm_node02
-      roles:
-      - infra_kvm
-      - linux_system_codename_xenial
-      interfaces:
-        eno1:
-          role: single_mgm
-        eno2:
-          role: bond0_ab_ovs_vlan_ctl
-
-    kvm03.mcp11-ovs-dpdk.local:
-      reclass_storage_name: infra_kvm_node03
-      roles:
-      - infra_kvm
-      - linux_system_codename_xenial
-      interfaces:
-        eno1:
-          role: single_mgm
-        eno2:
-          role: bond0_ab_ovs_vlan_ctl
-"""
-
-
 def find_yaml_paths(tmp_dir, exts=None):
     if exts is None:
         exts = ['.yml', '.yaml']
