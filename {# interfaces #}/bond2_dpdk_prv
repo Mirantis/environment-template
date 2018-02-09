@@ -11,7 +11,7 @@
                 enabled: true
                 n_rxq: 2
                 name: {{ interface_name }}
-                pci: '{{ interface['dpdk_pci'] }}'
+                pci: "{{ interface['dpdk_pci'] }}"
                 type: dpdk_ovs_port
               {%- endfor %}
               bonddpdk2:
