@@ -1,0 +1,21 @@
+{#- Provides:                         #}
+{#-   br-prv (OVS bridge) #}
+{#- Requirements:                     #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_network_netmask         #}
+              # {{ interfaces_role }}
+              {%- for interface_name, interface in interfaces.items() %}
+              dpdk0:
+                driver: igb_uio
+                enabled: true
+                n_rxq: 2
+                name: {{ interface_name }}
+                pci: "{{ interface['dpdk_pci'] }}"
+                type: dpdk_ovs_port
+                bridge: br-prv
+              {% endfor %}
+              br-prv:
+                address: ${_param:_esc}{_param:tenant_address}
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                enabled: true
+                type: dpdk_ovs_bridge
