@@ -7,3 +7,4 @@ parameters:
           classes:
 #}
           - environment.{{ cookiecutter._env_name }}.features.designate_pool_manager.dns
+          - cluster.${_param:cluster_name}.infra
