@@ -1,5 +1,6 @@
 {#- Public network. For gateway nodes and computes with dvr #}
               # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- set interface_name = interfaces.keys()[0] %}
               {{ interface_name }}:
                 enabled: true

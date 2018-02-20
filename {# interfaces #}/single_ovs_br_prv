@@ -1,5 +1,6 @@
 {#- Tenant over VLAN. For computes with dedicated physical interface for tenant networks. #}
               # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- set interface_name = interfaces.keys()[0] %}
               {{ interface_name }}:
                 enabled: true

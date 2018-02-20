@@ -1,5 +1,4 @@
 {#- Provides:     #}
-{#-   br_mesh (linux bridge) + tenant address #}
 {#-   vhost0 , as a keepalived vip interface #}
 {#- Requirements:                     #}
 {#-   _param:tenant_vlan           #}

@@ -7,6 +7,7 @@
 {#-   _param:control_network_netmask         #}
 {#-   _param:control_vlan           #}
               # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- for interface_name, interface in interfaces.items() %}
               {{ interface_name }}:
                 mtu: 9000

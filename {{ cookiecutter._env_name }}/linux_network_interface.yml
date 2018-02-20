@@ -1,6 +1,8 @@
 parameters:
-  # _param:
-  # Put overrides for any environment-specific variables here
+  _param:
+    # Put overrides for any environment-specific variables here
+    linux_network_bridge: 'none'
   linux:
     network:
+      bridge: ${_param:linux_network_bridge}
       interface: ${_param:linux_network_interfaces}
