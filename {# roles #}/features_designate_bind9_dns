@@ -6,6 +6,6 @@ parameters:
         <reclass_storage_node_name>:
           classes:
 #}
-          - environment.{{ cookiecutter._env_name }}.features.designate_pool_manager.dns
-          - environment.{{ cookiecutter._env_name }}.features.designate_pool_manager
+          - environment.{{ cookiecutter._env_name }}.features.designate_bind9.dns
+          - environment.{{ cookiecutter._env_name }}.features.designate_bind9
           - cluster.${_param:cluster_name}.infra
