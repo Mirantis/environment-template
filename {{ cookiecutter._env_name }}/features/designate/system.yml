@@ -14,6 +14,8 @@ parameters:
     worker:
       enabled: ${_param:designate_worker_enabled}
     server:
+      quota:
+        zones: ${_param:designate_quota_zones}
       pools:
         default:
           description: 'test pool'

@@ -1,0 +1,42 @@
+classes:
+- system.bind.server.single
+# Parameters below are little different from system.designate.server.backend.bind
+parameters:
+  bind:
+    server:
+      key:
+        designate:
+          secret: "${_param:designate_bind9_rndc_key}"
+          algorithm: "${_param:designate_bind9_rndc_algorithm}"
+      allow_new_zones: true
+      query: true
+      control:
+        mgmt:
+          enabled: true
+          bind:
+            address: ${_param:single_address}
+            port: 953
+          allow:
+            - ${_param:openstack_control_node01_address}
+            - ${_param:openstack_control_node02_address}
+            - ${_param:openstack_control_node03_address}
+            - ${_param:single_address}
+            - 127.0.0.1
+          keys:
+            - designate
+    client:
+      enabled: true
+      option:
+        default:
+          server: 127.0.0.1
+          port: 953
+          key: designate
+      key:
+        designate:
+          secret: "${_param:designate_bind9_rndc_key}"
+          algorithm: "${_param:designate_bind9_rndc_algorithm}"
+#  linux:
+#    system:
+#      package:
+#        python-msgpack:
+#          version: latest

@@ -6,9 +6,11 @@ parameters:
     # Put overrides for any environment-specific variables here
     powerdns_webserver_password: {{ password(12) }}
     powerdns_webserver_port: 8081
+    designate_admin_api_enabled: true
     designate_domain_id: 5186883b-91fb-4891-bd49-e6769234a8fc
     designate_pdns_api_key: {{ password(12) }}
     designate_pdns_api_endpoint: "http://${_param:openstack_control_node01_address}:${_param:powerdns_webserver_port}"
+    designate_quota_zones: 40
     designate_pool_ns_records:
       - hostname: 'ns1.example.org.'
         priority: 10
