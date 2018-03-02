@@ -152,6 +152,21 @@ nodes:
           role: bond1_ab_ovs_floating
 ```
 
+Extra classes example:
+```
+nodes:
+    cfg01.mcp11-ovs-dpdk.local:
+      reclass_storage_name: infra_config_node01
+      classes:
+      - cluster.${_param:cluster_name}.infra.config
+      - system.openssh.client.lab
+
+    ctl01.mcp11-ovs-dpdk.local:
+      reclass_storage_name: openstack_control_node01
+      classes:
+      - system.openssh.server.team.lab
+```
+
 TODO
 ----
 * Address plan: ability to specify L3 network pools and generate address metadata for nodes from specified pools

@@ -2,7 +2,7 @@
 {%- set infra_config_classes = [] %}
 {#- 'global_metadata' is a global collection of objects shared between nodes #}
 {%- set global_metadata = {} %}
-{%- set common_roles = ['_linux_network_interface', '_metadata_process', '_overrides'] %}
+{%- set common_roles = ['_linux_network_interface', '_metadata_process', '_classes', '_overrides'] %}
 parameters:
   _param:
     _esc: $
@@ -31,7 +31,7 @@ parameters:
           {%- endmacro %}
           {#-#}
           classes:
-          {#- Default roles are added to each node #}
+          {#- Common dynamic roles are added to each node #}
           {#- 'overrides' must be the very last role for each node #}
           {%- for role in node.get('roles', []) + common_roles %}
             {%- include ("{# roles #}/" + role) %}

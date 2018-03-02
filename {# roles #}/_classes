@@ -1,0 +1,12 @@
+{#-
+parameters:
+  reclass:
+    storage:
+      node:
+        <reclass_storage_node_name>:
+          classes:
+           # list of extra classes provided from the context file
+#}
+          {%- for class in node.get('classes', []) %}
+          - {{ class }}
+          {%- endfor %}
