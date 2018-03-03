@@ -1,6 +1,7 @@
 classes:
 - system.designate.server.cluster
 #- system.designate.server.backend.bind  # is not suitable class yet
+- system.haproxy.proxy.listen.openstack.designate
 - environment.{{ cookiecutter._env_name }}.features.designate_bind9
 parameters:
   designate:

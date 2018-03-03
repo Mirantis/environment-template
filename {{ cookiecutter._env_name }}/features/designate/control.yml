@@ -1,6 +1,7 @@
 classes:
 - system.designate.server.cluster
 - system.designate.server.backend.pdns
+- system.haproxy.proxy.listen.openstack.designate
 - environment.{{ cookiecutter._env_name }}.features.designate
 parameters:
   powerdns:
