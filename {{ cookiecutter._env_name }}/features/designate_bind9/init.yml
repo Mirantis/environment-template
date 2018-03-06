@@ -37,8 +37,8 @@ parameters:
     mysql_designate_password: {{ password(16) }}
     keystone_designate_password: {{ password(16) }}
 
-    openstack_dns_node01_address: 172.16.10.111
-    openstack_dns_node02_address: 172.16.10.112
+    # openstack_dns_node01_address: 172.16.10.111
+    # openstack_dns_node02_address: 172.16.10.112
   linux:
     network:
       host:
