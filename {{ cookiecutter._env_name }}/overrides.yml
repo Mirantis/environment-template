@@ -28,6 +28,8 @@ parameters:
           password: $6$oV7iKxfx$7DOZUfLw30d/W.pzUf97F0z1JhxgNmFAiKT1HhIodjkWb0M/.dTYAc3uxDCScR3lvCALjRe4/xWtiDyywf8wi1
       purge_repos: true
   salt:
+    master:
+      command_timeout: 600
     minion:
       log:
         level: debug
