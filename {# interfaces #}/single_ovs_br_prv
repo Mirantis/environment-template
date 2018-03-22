@@ -2,10 +2,13 @@
               # {{ interfaces_role }}
               {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- set interface_name = interfaces.keys()[0] %}
+              {%- set interface = interfaces[interface_name] %}
               {{ interface_name }}:
                 enabled: true
                 name: {{ interface_name }}
-                mtu: ${_param:interface_mtu}
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
                 proto: manual
                 type: eth
                 ovs_bridge: br-prv

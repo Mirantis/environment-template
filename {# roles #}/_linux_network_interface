@@ -18,6 +18,7 @@
         'tenant_network_gateway',
         'dns_server01',
         'dns_server02',
+        'mtu',
     ]
 %}
 {%- set interface_roles = {} %}

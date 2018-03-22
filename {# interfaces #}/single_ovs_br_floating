@@ -2,25 +2,34 @@
               # {{ interfaces_role }}
               {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- set interface_name = interfaces.keys()[0] %}
+              {%- set interface = interfaces[interface_name] %}
               {{ interface_name }}:
                 enabled: true
                 name: {{ interface_name }}
-                mtu: ${_param:interface_mtu}
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
                 proto: manual
                 type: eth
               br-floating:
                 enabled: true
                 type: ovs_bridge
-                mtu: ${_param:interface_mtu}
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
               float-to-ex:
                 enabled: true
                 type: ovs_port
-                mtu: ${_param:interface_mtu}
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
                 bridge: br-floating
               br-ex:
                 enabled: true
                 type: bridge
-                mtu: ${_param:interface_mtu}
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
                 address: ${_param:external_address}
                 netmask: 255.255.255.0
                 use_interfaces:
