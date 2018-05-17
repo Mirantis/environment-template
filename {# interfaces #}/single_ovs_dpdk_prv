@@ -4,6 +4,7 @@
 {#-   _param:tenant_address         #}
 {#-   _param:tenant_network_netmask         #}
               # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- for interface_name, interface in interfaces.items() %}
               dpdk0:
                 driver: igb_uio
