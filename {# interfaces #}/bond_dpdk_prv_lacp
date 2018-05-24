@@ -1,0 +1,29 @@
+{#- Provides:                         #}
+{#-   br-prv (OVS bridge) #}
+{#- Requirements:                     #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_network_netmask         #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                bond: bonddpdk2
+                driver: igb_uio
+                enabled: true
+                n_rxq: 2
+                name: {{ interface_name }}
+                pci: "{{ interface['dpdk_pci'] }}"
+                type: dpdk_ovs_port
+                ipflush_onchange: true
+                proto: manual
+              {%- endfor %}
+              bonddpdk2:
+                bridge: br-prv
+                enabled: true
+                mode: balance-slb
+                type: dpdk_ovs_bond
+              br-prv:
+                address: ${_param:_esc}{_param:tenant_address}
+                enabled: true
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                type: dpdk_ovs_bridge

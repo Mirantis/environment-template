@@ -1,0 +1,28 @@
+{#- Control network with mgm. For compute nodes using 1 interface for mgm and ctl+vlan #}
+{#- Provides:     #}
+{#- Requirements:                     #}
+{#-   _param:single_address         #}
+{#-   _param:deploy_address         #}
+{#-   _param:deploy_network_netmask         #}
+{#-   _param:deploy_network_gateway         #}
+{#-   _param:control_network_netmask         #}
+{#-   _param:control_vlan           #}
+
+              # {{ interfaces_role }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                name: {{ interface_name }}
+                type: eth
+                proto: dhcp
+
+              {{ interface_name }}.control_vlan:
+                mtu: 9000
+                name: {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                address: ${_param:_esc}{_param:single_address}
+                enabled: true
+                netmask: ${_param:_esc}{_param:control_network_netmask}
+                proto: static
+                type: vlan
+              {%- endfor %}
