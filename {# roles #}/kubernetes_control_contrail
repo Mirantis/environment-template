@@ -7,6 +7,9 @@ parameters:
           classes:
 #}
           - cluster.${_param:cluster_name}.kubernetes.control
+          - cluster.${_param:cluster_name}.opencontrail.control
 {{- set_param('keepalived_vip_interface', 'ens4') }}
 {{- register_metaparam('keepalived_vip_priority', 'kubernetes_control') }}
 {{- register_metaparam('keepalived_vip_virtual_router_id', 'kubernetes_control') }}
+{{- register_metaparam('opencontrail_database_id', 'kubernetes_control') }}
+{{- register_metaparam('rabbitmq_cluster_role', 'kubernetes_control') }}

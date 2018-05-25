@@ -1,0 +1,10 @@
+{#-
+parameters:
+  reclass:
+    storage:
+      node:
+        <reclass_storage_node_name>:
+          classes:
+#}
+          - cluster.${_param:cluster_name}.kubernetes.compute
+          - cluster.${_param:cluster_name}.opencontrail.compute

@@ -1,0 +1,1 @@
+{{- set_param('salt_master_host', '${_param:reclass_config_master}') }}
