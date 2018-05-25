@@ -13,7 +13,6 @@
                 name: {{ interface_name }}
                 proto: static
                 type: eth
-                ipflush_onchange: true
                 address: ${_param:_esc}{_param:single_address}
                 netmask: ${_param:_esc}{_param:control_network_netmask}
                 name_servers:
