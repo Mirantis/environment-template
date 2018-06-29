@@ -22,6 +22,9 @@ parameters:
   openssh:
     server:
       password_auth: true
+      alive:
+        interval: 18000
+        count: 0
   linux:
     system:
       user:
