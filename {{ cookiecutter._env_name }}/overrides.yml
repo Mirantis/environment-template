@@ -25,6 +25,16 @@ parameters:
       alive:
         interval: 18000
         count: 0
+    client:
+      user:
+        root:
+          config:
+            '*':
+              alive:
+                interval: 60
+                count: 0
+              stricthostkeychecking: no
+              userknownhostsfile: '/dev/null'
   linux:
     system:
       user:
