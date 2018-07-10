@@ -3,6 +3,7 @@ classes:
 # Enable root and *ALL* users access
 - system.openssh.server.team.all
 - system.linux.network.dynamic_hosts
+- system.openssh.client.root
 
 # Example: salt-call reclass.cluster_meta_set foo bar /path/to/overrides.yml
 #parameters:
