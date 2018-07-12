@@ -33,7 +33,7 @@ parameters:
             '*':
               alive:
                 interval: 60
-                count: 0
+                count: 5
               stricthostkeychecking: no
               userknownhostsfile: '/dev/null'
   linux:
