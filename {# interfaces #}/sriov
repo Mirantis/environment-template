@@ -1,0 +1,12 @@
+{#- SRIOV interface #}
+{#- Provides:                         #}
+{#-   SRIOV interface                 #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                name: {{ interface_name }}
+                enabled: true
+                type: eth
+                proto: manual
+                post_up_cmds:
+                - echo 7 > /sys/class/net/{{ interface_name }}/device/sriov_numvfs

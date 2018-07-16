@@ -27,3 +27,5 @@
                 enabled: true
                 netmask: ${_param:_esc}{_param:tenant_network_netmask}
                 type: dpdk_ovs_bridge
+                ipflush_onchange: true
+                restart_on_ipflush: true
