@@ -16,6 +16,8 @@
         'tenant_address',
         'tenant_network_netmask',
         'tenant_network_gateway',
+        'external_address',
+        'external_network_netmask',
         'dns_server01',
         'dns_server02',
         'mtu',
