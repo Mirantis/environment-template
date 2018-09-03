@@ -1,0 +1,41 @@
+{#- Interface is used only for k8s and OC >=4.0 versions. vhost0 with #}
+{#- control network is needed for access to contrail API from pods #}
+{#- spawned on compute nodes. Contrail API is placed inside pods #}
+{#- on ctl nodes and accessible via control network #}
+{#- Requirements:                     #}
+{#-   _param:single_address         #}
+{#-   _param:single_network_netmask         #}
+{#-   _param:control_vlan         #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              {{ interface_name }}.control_vlan:
+                name: {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
+              vhost0:
+                mtu: 9000
+                address: ${_param:_esc}{_param:single_address}
+                netmask: ${_param:_esc}{_param:control_network_netmask}
+                enabled: true
+                proto: static
+                type: eth
+                pre_up_cmds:
+                - /usr/lib/contrail/if-vhost0
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                use_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                require_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
