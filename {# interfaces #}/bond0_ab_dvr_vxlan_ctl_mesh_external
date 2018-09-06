@@ -2,7 +2,7 @@
 {#- Provides:                         #}
 {#-   br_ctl (OVS bridge) + control address #}
 {#-   br-mesh (OVS bridge) + tenant address #}
-{#-   br-ex (OVS bridge) + external address #}
+{#-   br-external (OVS bridge) + external address #}
 {#-   br-floating (OVS bridge) #}
 {#- Requirements:                     #}
 {#-   _param:single_address         #}
@@ -64,12 +64,12 @@
                 netmask: ${_param:_esc}{_param:tenant_network_netmask}
                 require_interfaces:
                 - br-floating
-              br-ex:
+              br-external:
                 enabled: true
                 type: ovs_port
                 bridge: br-floating
                 proto: static
                 address: ${_param:_esc}{_param:external_address}
-                netmask: ${_param:_esc}{_param:external_netmask}
+                netmask: ${_param:_esc}{_param:external_network_netmask}
                 require_interfaces:
                 - br-floating
