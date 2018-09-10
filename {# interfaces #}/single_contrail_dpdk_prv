@@ -9,7 +9,6 @@
               # {{ interfaces_role }}
               {%- for interface_name, interface in interfaces.items() %}
               vhost0:
-                mtu: 9000
                 address: ${_param:_esc}{_param:tenant_address}
                 netmask: ${_param:_esc}{_param:tenant_network_netmask}
                 enabled: true
