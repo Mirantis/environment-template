@@ -1,0 +1,9 @@
+# NTP server settings for system clock time source
+parameters:
+  ntp:
+    client:
+      enabled: false
+    server:
+      enabled: true
+      strata:
+        - 127.127.1.0
