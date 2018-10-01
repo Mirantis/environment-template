@@ -7,3 +7,6 @@ parameters:
           classes:
 #}
           - cluster.${_param:cluster_name}.ceph.rgw
+{{- set_param('keepalived_vip_interface', 'br_ctl') }}
+{{- register_metaparam('keepalived_vip_priority', 'ceph_rgw') }}
+{{- register_metaparam('keepalived_vip_virtual_router_id', 'ceph_rgw') }}
