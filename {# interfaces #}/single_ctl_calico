@@ -28,5 +28,5 @@
                 - {{ interface_name }}
                 require_interfaces:
                 - {{ interface_name }}
-              post_up_cmds:
+                post_up_cmds:
                 - ip r rep 10.254.0.0/16 via ${_param:single_address}
