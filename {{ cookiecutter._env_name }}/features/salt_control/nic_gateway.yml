@@ -1,0 +1,16 @@
+parameters:
+  virt:
+    nic:
+      gateway:
+       - name: nic01
+         bridge: br_mgm
+         model: virtio
+       - name: nic02
+         bridge: br_ctl
+         model: virtio
+       - name: nic03
+         bridge: br-ten
+         model: virtio
+       - name: nic04
+         bridge: br-ten
+         model: virtio

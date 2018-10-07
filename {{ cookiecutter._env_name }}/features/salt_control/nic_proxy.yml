@@ -1,0 +1,15 @@
+parameters:
+  virt:
+    nic:
+      proxy:
+       - name: nic01
+         bridge: br-mgm
+         model: virtio
+       - name: nic02
+         bridge: br_ctl
+         model: virtio
+       - name: nic03
+         bridge: br-prv
+         model: virtio
+         virtualport:
+           type: openvswitch
