@@ -1,12 +1,4 @@
-#parameters:
-#  linux:
-#    storage:
-#      lvm:
-#        cinder-volumes:
-#          enabled: true
-#          devices:
-#            - /dev/vdb
-
+# Deprecated class, will be empty soon
 classes:
 - system.cinder.volume.single
 - system.cinder.volume.notification.messagingv2

@@ -1,0 +1,11 @@
+# Configure cinder-volume with LVM on /dev/loop0
+classes:
+- system.cinder.volume.single
+- system.cinder.volume.notification.messagingv2
+- system.cinder.volume.backend.lvm
+- system.linux.storage.loopback
+
+parameters:
+  _param:
+    cinder_lvm_default_device: "/dev/loop0"
+    loopback_device_size: 20

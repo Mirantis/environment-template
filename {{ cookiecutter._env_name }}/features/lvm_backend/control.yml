@@ -1,0 +1,3 @@
+# Provides LVM default_volume_type and backend settings on controller nodes
+classes:
+- system.cinder.control.backend.lvm

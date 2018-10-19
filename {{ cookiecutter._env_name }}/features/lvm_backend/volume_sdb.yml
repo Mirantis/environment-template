@@ -1,0 +1,9 @@
+# Configure cinder-volume with LVM on /dev/sdb
+classes:
+- system.cinder.volume.single
+- system.cinder.volume.notification.messagingv2
+- system.cinder.volume.backend.lvm
+
+parameters:
+  _param:
+    cinder_lvm_default_device: "/dev/sdb"
