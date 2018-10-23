@@ -6,4 +6,4 @@ parameters:
         <reclass_storage_node_name>:
           classes:
 #}
-          - environment.{{ cookiecutter._env_name }}.features.lvm_backend.control
+          - environment.{{ cookiecutter._env_name }}.features.lvm_backend.volume_sdb
