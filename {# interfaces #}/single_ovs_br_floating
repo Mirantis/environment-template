@@ -30,7 +30,7 @@
                 {%- if 'mtu' in interface %}
                 mtu: {{ interface['mtu'] }}
                 {%- endif %}
-                address: ${_param:external_address}
+                address: ${_param:_esc}{_param:external_address}
                 netmask: 255.255.255.0
                 use_interfaces:
                 - {{ interface_name }}
