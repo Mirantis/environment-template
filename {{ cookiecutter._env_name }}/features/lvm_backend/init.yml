@@ -11,7 +11,7 @@ parameters:
       lvm:
         cinder-vg:
           enabled: true
-          name: cinder-volumes
+          name: cinder-volume
           devices: ${_param:cinder_lvm_devices}
   cinder:
     volume:
@@ -20,4 +20,4 @@ parameters:
         lvm-driver:
           engine: lvm
           type_name: lvm-driver
-          volume_group: cinder-volumes
+          volume_group: cinder-volume
