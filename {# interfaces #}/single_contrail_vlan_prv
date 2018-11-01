@@ -1,0 +1,40 @@
+{#- Requirements:                     #}
+{#-   _param:tenant_vlan           #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_network_netmask         #}
+{#-   _param:tenant_network_gateway         #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              vhost0:
+                mtu: 9000
+                address: ${_param:_esc}{_param:tenant_address}
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                enabled: true
+                proto: static
+                type: eth
+                pre_up_cmds:
+                - /usr/lib/contrail/if-vhost0
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                use_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:tenant_vlan}
+                require_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:tenant_vlan}
+              {{ interface_name }}.tenant_vlan:
+                mtu: 9000
+                name: {{ interface_name }}.${_param:_esc}{_param:tenant_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
