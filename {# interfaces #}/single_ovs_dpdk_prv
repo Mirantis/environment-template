@@ -16,6 +16,7 @@
                 bridge: br-prv
               {% endfor %}
               br-prv:
+                proto: static
                 address: ${_param:_esc}{_param:tenant_address}
                 netmask: ${_param:_esc}{_param:tenant_network_netmask}
                 enabled: true

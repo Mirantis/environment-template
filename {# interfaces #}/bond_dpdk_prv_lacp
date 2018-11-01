@@ -23,6 +23,7 @@
                 mode: balance-slb
                 type: dpdk_ovs_bond
               br-prv:
+                proto: static
                 address: ${_param:_esc}{_param:tenant_address}
                 enabled: true
                 netmask: ${_param:_esc}{_param:tenant_network_netmask}
