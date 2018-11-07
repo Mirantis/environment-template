@@ -1,0 +1,12 @@
+{#-
+parameters:
+  reclass:
+    storage:
+      node:
+        <reclass_storage_node_name>:
+          classes:
+#}
+          - cluster.${_param:cluster_name}.kubernetes.proxy
+{{- set_param('keepalived_vip_interface', 'br_ctl') }}
+{{- register_metaparam('keepalived_vip_priority', 'kubernetes_proxy') }}
+{{- register_metaparam('keepalived_vip_virtual_router_id', 'kubernetes_proxy') }}
