@@ -11,9 +11,10 @@
               {{ interface_name }}:
                 mtu: 9000
                 enabled: true
+                master: bond0
                 name: {{ interface_name }}
                 proto: manual
-                type: eth
+                type: slave
                 ipflush_onchange: true
               {%- endfor %}
               bond0:
