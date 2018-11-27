@@ -1,0 +1,43 @@
+{#- DPDK interface params for vrouter         #}
+{#- Requires:                                 #}
+{#-   _param:compute_vrouter_dpdk_mac_address #}
+{#-   _param:compute_vrouter_dpdk_pci         #}
+{#- Provides:     #}
+{#- Requirements:                     #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_network_netmask         #}
+              # {{ interfaces_role }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              {{ interface_name }}.tenant_vlan:
+                name: {{ interface_name }}.${_param:_esc}{_param:tenant_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
+              vhost0:
+                address: ${_param:_esc}{_param:tenant_address}
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                enabled: true
+                proto: static
+                type: eth
+                pre_up_cmds:
+                - /usr/lib/contrail/if-vhost0
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                {{- set_param('compute_vrouter_dpdk_pci', interface['dpdk_pci']) }}
+                {{- set_param('compute_vrouter_dpdk_mac_address', interface['dpdk_mac']) }}
+                use_interfaces:
+                - {{ interface_name }}
+                post_up_cmds:
+                - ip link set vhost0 address ${_param:_esc}{_param:compute_vrouter_dpdk_mac_address}
+                {%- endfor %}
