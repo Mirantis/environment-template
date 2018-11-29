@@ -93,3 +93,7 @@ nodes:
           role: single_mgm
         enp2s0f1:
           role: bond0_ab_dvr_vlan_ctl_prv_floating
+
+default_context:
+    manila_enabled: 'False'
+    barbican_enabled: 'False'

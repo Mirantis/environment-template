@@ -4,6 +4,7 @@ nodes:
       roles:
       - infra_config
       - linux_system_codename_xenial
+      - features_runtest
       classes:
       - system.openssh.client.lab
       interfaces:
@@ -165,3 +166,7 @@ nodes:
         ens4:
           role: single_ctl
           single_address: ${_param:openstack_dns_node02_address}
+
+default_context:
+    manila_enabled: 'False'
+    barbican_enabled: 'False'

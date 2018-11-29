@@ -39,7 +39,11 @@ def generate_context():
                         }
                     }
                 }
-            }
+            },
+            'default_context': {
+                'manila_enabled': 'False',
+                'barbican_enabled': 'False',
+            },
         }
         yield node, "test_env-interface-" + interface_role
 
@@ -56,7 +60,11 @@ def generate_context():
                     ],
                     'interfaces': {}
                 }
-            }
+            },
+            'default_context': {
+                'manila_enabled': 'False',
+                'barbican_enabled': 'False',
+            },
         }
         yield node, "test_env-role-" + node_role
 
