@@ -37,22 +37,22 @@
                 {%- endfor %}
               # bond for cluster communication on _param:public_network
               bond0.1:
-                name: bond1.${_param:control_vlan}
+                name: bond1.${_param:_esc}{_param:storage_vlan}
                 enabled: true
                 type: vlan
                 proto: static
-                address: ${_param:single_address}
-                netmask: ${_param:control_network_netmask}
+                address: ${_param:_esc}{_param:storage_address}
+                netmask: ${_param:_esc}{_param:storage_network_netmask}
                 use_interfaces:
                 - bond0
                 mesh: control
               bond1.2:
-                name: bond1.${_param:backend_vlan}
+                name: bond1.${_param:_esc}{_param:backend_vlan}
                 enabled: true
                 type: vlan
                 proto: static
-                address: ${_param:backend_address}
-                netmask: ${_param:backend_network_netmask}
+                address: ${_param:_esc}{_param:backend_address}
+                netmask: ${_param:_esc}{_param:backend_network_netmask}
                 use_interfaces:
                 - bond1
                 mesh: storage_replication
