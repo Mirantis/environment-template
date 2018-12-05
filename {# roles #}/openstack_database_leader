@@ -6,9 +6,9 @@ parameters:
         <reclass_storage_node_name>:
           classes:
 #}
-          - cluster.${_param:cluster_name}.openstack.database
-          - cluster.${_param:cluster_name}.openstack.database_init
           - service.galera.master.cluster
+          - cluster.${_param:cluster_name}.openstack.database
+          - cluster.${_param:cluster_name}.openstack.database.master
 {{- set_param('keepalived_vip_interface', 'br_ctl') }}
 {{- register_metaparam('mysql_cluster_role', 'openstack_database') }}
 {{- register_metaparam('keepalived_vip_priority', 'openstack_database') }}
