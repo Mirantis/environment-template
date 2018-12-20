@@ -1,10 +1,12 @@
 classes:
 - service.runtest.tempest
+{% if defaut_context is defined %}
 {%- if default_context.get('manila_enabled', 'False') == 'True' %}
 - service.runtest.tempest.services.manila.glance
 {%- endif %}
 {%- if default_context.get('barbican_enabled', 'False') == 'True' %}
 - service.runtest.tempest.barbican
+{%- endif %}
 {%- endif %}
 parameters:
   _param:
