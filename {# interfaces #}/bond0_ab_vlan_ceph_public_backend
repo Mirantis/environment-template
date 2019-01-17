@@ -1,0 +1,58 @@
+{#- Tenant over VXLAN. For gateway and compute nodes #}
+{#- Provides:                         #}
+{#-   br_ctl (OVS bridge) + control address #}
+{#-   br_mesh (OVS bridge) + tenant address #}
+{#- Requirements:                     #}
+{#-   _param:public_address         #}
+{#-   _param:public_network_netmask         #}
+{#-   _param:public_vlan           #}
+{#-   _param:backend_address         #}
+{#-   _param:backend_network_netmask         #}
+{#-   _param:backend_vlan           #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                master: bond0  # ?
+                name: {{ interface_name }}
+                proto: manual
+                type: slave  # ?
+                ipflush_onchange: true
+              {%- endfor %}
+              bond0:
+                enabled: true
+                mode: active-backup
+                proto: manual
+                slaves: {{ ' '.join(interfaces.keys()) }}
+                type: bond
+                use_interfaces:
+                {%- for interface_name in interfaces.keys() %}
+                - {{ interface_name }}
+                {%- endfor %}
+                require_interfaces:
+                {%- for interface_name in interfaces.keys() %}
+                - {{ interface_name }}
+                {%- endfor %}
+              # bond for cluster communication on _param:ceph_public_address
+              bond0.1:
+                name: bond0.${_param:_esc}{_param:ceph_public_vlan}
+                enabled: true
+                type: vlan
+                proto: static
+                address: ${_param:_esc}{_param:ceph_public_address}
+                netmask: ${_param:_esc}{_param:ceph_public_network_netmask}
+                use_interfaces:
+                - bond0
+                mesh: control
+              bond0.2:
+                name: bond0.${_param:_esc}{_param:backend_vlan}
+                enabled: true
+                type: vlan
+                proto: static
+                address: ${_param:_esc}{_param:backend_address}
+                netmask: ${_param:_esc}{_param:backend_network_netmask}
+                use_interfaces:
+                - bond0
+                mesh: storage_replication

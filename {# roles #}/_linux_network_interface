@@ -18,6 +18,7 @@
         'tenant_network_gateway',
         'external_address',
         'external_network_netmask',
+        'external_vlan',
         'storage_vlan',
         'storage_address',
         'storage_network_netmask',

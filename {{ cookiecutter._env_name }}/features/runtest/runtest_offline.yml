@@ -1,0 +1,25 @@
+classes:
+- service.runtest.tempest
+{%- if default_context.get('manila_enabled', 'False') == 'True' %}
+- service.runtest.tempest.services.manila.glance
+{%- endif %}
+{%- if default_context.get('barbican_enabled', 'False') == 'True' and default_context.get('barbican_integration_enabled', 'False') == 'True' %}
+- service.runtest.tempest.barbican
+{%- endif %}
+parameters:
+  _param:
+    image_host: http://apt
+    glance_image_cirros_location: ${_param:image_host}/cirros-0.3.5-x86_64-disk.img
+    glance_image_fedora_location: ${_param:image_host}/Fedora-Cloud-Base-27-1.6.x86_64.qcow2
+    glance_image_manila_location: ${_param:image_host}/manila-service-image-master.qcow2
+    tempest_test_target: cfg01*
+    runtest_tempest_cfg_dir: /tmp/test
+    runtest_tempest_cfg_name: tempest.conf
+  runtest:
+    tempest:
+      DEFAULT:
+        log_file: tempest.log
+      cfg_dir: ${_param:runtest_tempest_cfg_dir}
+      cfg_name: ${_param:runtest_tempest_cfg_name}
+      put_keystone_rc_enabled: True
+      put_local_image_file_enabled: True
