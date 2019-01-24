@@ -1,9 +1,9 @@
 classes:
 - service.runtest.tempest
-{%- if default_context.manila_enabled == 'True' %}
+{%- if default_context.get('manila_enabled', 'False') == 'True' %}
 - service.runtest.tempest.services.manila.glance
 {%- endif %}
-{%- if default_context.barbican_enabled == 'True' %}
+{%- if default_context.get('barbican_enabled', 'False') == 'True' and default_context.get('barbican_integration_enabled', 'False') == 'True' %}
 - service.runtest.tempest.barbican
 {%- endif %}
 parameters:
