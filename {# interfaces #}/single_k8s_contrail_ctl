@@ -1,0 +1,46 @@
+{#- Control network. For control plane nodes   #}
+{#- +Route for access to contrail API          #}
+{#- +Route for access to internal https API    #}
+{#- Provides:                                  #}
+{#-   br_ctl (linux bridge) + address          #}
+{#- Requires:                                  #}
+{#-   _param:single_address                    #}
+{#-   _param:control_network_netmask           #}
+{#-   _param:tenant_network_subnet             #}
+{#-   _param:opencontrail_router01_address     #}
+{#-   _param:control_vlan                      #}
+{#-   _param:dns_server01                      #}
+{#-   _param:dns_server02                      #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              br_ctl:
+                enabled: true
+                address: ${_param:_esc}{_param:single_address}
+                netmask: ${_param:_esc}{_param:control_network_netmask}
+                proto: static
+                type: bridge
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                use_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                require_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                post_up_cmds:
+                - ip r rep 10.254.0.0/16 via ${_param:_esc}{_param:single_address}
+                - ip r rep ${_param:_esc}{_param:tenant_network_subnet} via ${_param:_esc}{_param:opencontrail_router01_address}
+              {{ interface_name }}.control_vlan:
+                name: {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
