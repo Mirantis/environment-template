@@ -1,0 +1,25 @@
+{#- Network used to provision baremetal servers with Ironic. For a separate interface on gateway nodes #}
+{#- Provides:                         #}
+{#-   br_baremetal (OVS bridge) #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {%- set interface = interfaces[interface_name] %}
+              br-baremetal:
+                enabled: true
+                type: ovs_bridge
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                type: eth
+                proto: manual
+                ovs_bridge: br-baremetal
+                ovs_type: OVSPort
+                ipflush_onchange: true
+                restart_on_ipflush: true
+                {%- if 'mtu' in interface %}
+                mtu: {{ interface['mtu'] }}
+                {%- endif %}
