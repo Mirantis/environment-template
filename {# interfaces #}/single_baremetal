@@ -1,0 +1,15 @@
+{#- External network. For proxy and other nodes with endpoints from external network #}
+{#- Provides:                         #}
+{#-   (linux interface) + address #}
+{#- Requires:                         #}
+{#-   _param:external_address          #}
+{#-   _param:external_network_netmask       #}
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                enabled: true
+                name: {{ interface_name }}
+                address: ${_param:_esc}{_param:baremetal_address}
+                netmask: 255.255.255.0
+                proto: static
+                type: eth
