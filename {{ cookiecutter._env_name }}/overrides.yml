@@ -28,8 +28,14 @@ parameters:
         interval: 18000
         count: 0
     client:
+      enabled: true
       user:
         root:
+          enabled: true
+          user: ${linux:system:user:root}
+          private_key:
+            key: ${_param:root_private_key}
+            type: rsa
           config:
             '*':
               alive:
