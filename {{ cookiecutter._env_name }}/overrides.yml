@@ -20,7 +20,6 @@ parameters:
     galera_xtrabackup_parallel: 1
     galera_error_log_enabled: true
     # from system.openssh.client.lab
-    root_private_key: ${_param:cluster_private_key}
   openssh:
     server:
       password_auth: true
