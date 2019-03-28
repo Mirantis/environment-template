@@ -23,6 +23,7 @@ parameters:
   openssh:
     server:
       password_auth: true
+      permit_root_login: true
       alive:
         interval: 18000
         count: 0
