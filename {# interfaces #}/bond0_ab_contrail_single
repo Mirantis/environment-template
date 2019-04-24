@@ -32,6 +32,7 @@
                 - {{ interface_name }}
                 {%- endfor %}
               {{- set_param('keepalived_vip_interface', 'vhost0') }}
+              {{- set_param('opencontrail_compute_iface', 'bond0') }}
               vhost0:
                 mtu: 1450
                 address: ${_param:_esc}{_param:tenant_address}
