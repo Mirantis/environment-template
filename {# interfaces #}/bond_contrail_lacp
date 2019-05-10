@@ -1,0 +1,61 @@
+{#- Provides:     #}
+{#-   vhost0 , as a keepalived vip interface #}
+{#- Requirements:                     #}
+{#-   _param:tenant_vlan           #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_network_netmask         #}
+{#-   _param:tenant_network_gateway         #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                master: bond0
+                name: {{ interface_name }}
+                proto: manual
+                type: slave
+                ipflush_onchange: true
+              {%- endfor %}
+              bond0:
+                mtu: 9000
+                enabled: true
+                mode: '802.3ad'
+                proto: manual
+                slaves: {{ ' '.join(interfaces.keys()) }}
+                type: bond
+                use_interfaces:
+                {%- for interface_name in interfaces.keys() %}
+                - {{ interface_name }}
+                {%- endfor %}
+                require_interfaces:
+                {%- for interface_name in interfaces.keys() %}
+                - {{ interface_name }}
+                {%- endfor %}
+              {{- set_param('keepalived_vip_interface', 'vhost0') }}
+              vhost0:
+                mtu: 9000
+                address: ${_param:_esc}{_param:tenant_address}
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                enabled: true
+                proto: static
+                type: eth
+                pre_up_cmds:
+                - /usr/lib/contrail/if-vhost0
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                use_interfaces:
+                - bond0.${_param:_esc}{_param:tenant_vlan}
+                require_interfaces:
+                - bond0.${_param:_esc}{_param:tenant_vlan}
+              bond0.tenant_vlan:
+                mtu: 9000
+                name: bond0.${_param:_esc}{_param:tenant_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - bond0
+                require_interfaces:
+                - bond0
