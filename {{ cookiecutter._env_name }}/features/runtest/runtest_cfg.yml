@@ -9,7 +9,7 @@ classes:
 parameters:
   _param:
     image_host: http://172.19.112.216:8099
-    glance_image_cirros_location: ${_param:image_host}/cirros-0.3.5-x86_64-disk.img
+    glance_image_cirros_location: ${_param:image_host}/cirros-0.4.0-x86_64-disk.img
     glance_image_fedora_location: ${_param:image_host}/Fedora-Cloud-Base-27-1.6.x86_64.qcow2
     glance_image_manila_location: ${_param:image_host}/manila-service-image-master.qcow2
     tempest_test_target: cfg01*
