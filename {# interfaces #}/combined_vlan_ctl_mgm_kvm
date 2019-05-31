@@ -1,0 +1,47 @@
+{#- Control network with mgm. For compute nodes using 1 interface for mgm and ctl+vlan #}
+{#- Provides:     #}
+{#- Requirements:                     #}
+{#-   _param:single_address         #}
+{#-   _param:deploy_address         #}
+{#-   _param:deploy_network_netmask         #}
+{#-   _param:deploy_network_gateway         #}
+{#-   _param:control_network_netmask         #}
+{#-   _param:control_vlan           #}
+
+              # {{ interfaces_role }}
+              {%- set interface_name = interfaces.keys()[0] %}
+              {{ interface_name }}:
+                mtu: 1500
+                enabled: true
+                name: {{ interface_name }}
+                type: eth
+                ipflush_onchange: true
+                restart_on_ipflush: true
+                proto: manual
+              br_mgm:
+                enabled: true
+                proto: dhcp
+                type: bridge
+                ipflush_onchange: true
+                restart_on_ipflush: true
+                use_interfaces:
+                - {{ interface_name }}
+              {{ interface_name }}.control_vlan:
+                mtu: 1500
+                name: {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                enabled: true
+                proto: manual
+                type: vlan
+              br_ctl:
+                enabled: true
+                address: ${_param:_esc}{_param:single_address}
+                netmask: ${_param:_esc}{_param:control_network_netmask}
+                proto: static
+                type: bridge
+                name_servers:
+                - ${_param:_esc}{_param:dns_server01}
+                - ${_param:_esc}{_param:dns_server02}
+                use_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
+                require_interfaces:
+                - {{ interface_name }}.${_param:_esc}{_param:control_vlan}
