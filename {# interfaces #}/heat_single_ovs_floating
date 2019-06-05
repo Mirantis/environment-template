@@ -1,0 +1,25 @@
+{#- Floating on a separated bond interfaces. For gateway nodes and computes with dvr #}
+{#- Provides:                         #}
+{#-   br_floating (OVS bridge) #}
+{#- Requirements:                     #}
+{#-   _param:?addr         #}
+{#-   _param:?mask         #}
+{#-   _param:?vlan           #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                ovs_port_type: OVSPort
+                ovs_bridge: br-floating
+                type: ovs_port
+                bridge: br-floating
+                ipflush_onchange: true
+                restart_on_ipflush: true
+              {%- endfor %}
+              br-floating:
+                enabled: true
+                type: ovs_bridge

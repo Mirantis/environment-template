@@ -1,0 +1,29 @@
+{#- Tenant over VXLAN. For gateway nodes. Used for virtual deploys. #}
+{#- Because we don't use tagging of switch ports, we shouldn't use tag on br-mesh#}
+{#- Provides:                         #}
+{#-   br_mesh (OVS bridge) + tenant address #}
+{#- Requirements:                     #}
+{#-   _param:tenant_address         #}
+{#-   _param:tenant_netmask         #}
+{#-   _param:tenant_vlan           #}
+              # {{ interfaces_role }}
+              {{- set_param('linux_network_bridge', 'openvswitch') }}
+              {%- for interface_name, interface in interfaces.items() %}
+              {{ interface_name }}:
+                mtu: 9000
+                enabled: true
+                name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              br-mesh:
+                enabled: true
+                type: bridge
+                proto: static
+                address: ${_param:_esc}{_param:tenant_address}
+                netmask: ${_param:_esc}{_param:tenant_network_netmask}
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}
+              {%- endfor %}
