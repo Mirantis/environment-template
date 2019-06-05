@@ -6,6 +6,10 @@ classes:
 {%- if default_context.get('barbican_enabled', 'False') == 'True' and default_context.get('barbican_integration_enabled', 'False') == 'True' %}
 - service.runtest.tempest.barbican
 {%- endif %}
+{%- if default_context.get('opencontrail_enabled', 'False') == 'True' %}
+- system.neutron.client.service.contrail_public_v2
+- service.runtest.tempest.tempest_net
+{%- endif %}
 parameters:
   _param:
     image_host: http://172.19.112.216:8099
