@@ -1,0 +1,39 @@
+parameters:
+  ironic:
+    client:
+      enabled: true
+      enroll_to_available:
+        provision_state: 'enroll'
+        pool_size: 5
+        sleep_time: 10
+        timeout: 15
+      nodes:
+        admin_identity:
+          - name: node01
+            driver: pxe_ipmitool
+            properties:
+              local_gb: 120
+              cpus: 1
+              memory_mb: 8192
+              cpu_arch: x64
+            driver_info:
+              ipmi_username: ==IPMI_USER==
+              ipmi_password: ==IPMI_PASS==
+              ipmi_address: 185.8.59.224
+            ports:
+              - address: 0c:c4:7a:20:19:62
+              - address: 0c:c4:7a:20:19:63
+          - name: node02
+            driver: pxe_ipmitool
+            properties:
+              local_gb: 120
+              cpus: 1
+              memory_mb: 8192
+              cpu_arch: x64
+            driver_info:
+              ipmi_username: ==IPMI_USER==
+              ipmi_password: ==IPMI_PASS==
+              ipmi_address: 185.8.59.22
+            ports:
+              - address: 0c:c4:7a:20:0b:b6
+              - address: 0c:c4:7a:20:0b:b7
