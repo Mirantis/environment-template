@@ -1,5 +1,9 @@
 parameters:
     neutron:
+      backend:
+        mechanism:
+          ngs:
+            driver: genericswitch
       server:
         n_g_s:
           enabled: true
