@@ -1,15 +1,24 @@
-{#- External network. For proxy and other nodes with endpoints from external network #}
+{#- pxe network. #}
 {#- Provides:                         #}
-{#-   (linux interface) + address #}
+{#-   br_baremetal (linux bridge) + address #}
 {#- Requires:                         #}
-{#-   _param:external_address          #}
-{#-   _param:external_network_netmask       #}
+{#-   _param:baremetal_address         #}
+{#-   _param:openstack_baremetal_neutron_subnet_cidr  #}
               # {{ interfaces_role }}
               {%- set interface_name = interfaces.keys()[0] %}
               {{ interface_name }}:
                 enabled: true
                 name: {{ interface_name }}
+                proto: manual
+                type: eth
+                ipflush_onchange: true
+              br_baremetal:
                 address: ${_param:_esc}{_param:baremetal_address}
+                enabled: true
                 netmask: 255.255.255.0
                 proto: static
-                type: eth
+                type: bridge
+                use_interfaces:
+                - {{ interface_name }}
+                require_interfaces:
+                - {{ interface_name }}

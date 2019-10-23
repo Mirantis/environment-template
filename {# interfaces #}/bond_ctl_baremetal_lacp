@@ -51,3 +51,14 @@
                 - bond0
                 require_interfaces:
                 - bond0
+              bond0.2402:
+                name: bond0.2402
+                enabled: true
+                ovs_bridge: br-baremetal
+                ovs_type: OVSPort
+                proto: manual
+                type: vlan
+                use_interfaces:
+                - bond0
+                require_interfaces:
+                - bond0

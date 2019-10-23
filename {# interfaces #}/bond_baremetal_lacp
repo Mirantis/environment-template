@@ -1,24 +1,19 @@
-{#- Control network with bond. For control plane nodes #}
+
+{#- pxe network with bond. For control plane bmt nodes #}
 {#- Provides:     #}
-{#-   br_ctl (linux bridge) + control address #}
-{#-   _param:keepalived_vip_interface = 'br_ctl' #}
-{#- Requirements:                     #}
-{#-   _param:single_address         #}
-{#-   _param:control_network_netmask         #}
-{#-   _param:control_vlan           #}
               # {{ interfaces_role }}
               {{- set_param('linux_network_bridge', 'openvswitch') }}
               {%- for interface_name, interface in interfaces.items() %}
               {{ interface_name }}:
                 mtu: 9000
                 enabled: true
-                master: bond0
+                master: bond1
                 name: {{ interface_name }}
                 proto: manual
                 type: slave
                 ipflush_onchange: true
               {%- endfor %}
-              bond0:
+              bond1:
                 enabled: true
                 mode: '802.3ad'
                 proto: manual
@@ -32,22 +27,20 @@
                 {%- for interface_name in interfaces.keys() %}
                 - {{ interface_name }}
                 {%- endfor %}
-              br_ctl:
-                address: ${_param:_esc}{_param:single_address}
+              br_baremetal:
                 enabled: true
-                netmask: ${_param:_esc}{_param:control_network_netmask}
-                proto: static
+                proto: manual
                 type: bridge
                 use_interfaces:
-                - bond0.${_param:_esc}{_param:control_vlan}
+                - bond1.2402
                 require_interfaces:
-                - bond0.${_param:_esc}{_param:control_vlan}
-              bond0.control_vlan:
-                name: bond0.${_param:_esc}{_param:control_vlan}
+                - bond1.2402
+              bond1.2402:
+                name: bond1.2402
                 enabled: true
                 proto: manual
                 type: vlan
                 use_interfaces:
-                - bond0
+                - bond1
                 require_interfaces:
-                - bond0
+                - bond1

@@ -7,6 +7,6 @@ parameters:
           classes:
 #}
           - cluster.${_param:cluster_name}.openstack.baremetal
-{{- set_param('keepalived_vip_interface', 'br_ctl') }}
+{{- set_param('keepalived_vip_interface', 'br_baremetal') }}
 {{- register_metaparam('keepalived_vip_priority', 'openstack_baremetal') }}
 {{- register_metaparam('keepalived_vip_virtual_router_id', 'openstack_baremetal') }}
