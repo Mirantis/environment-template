@@ -62,3 +62,6 @@
                 - bond0
                 require_interfaces:
                 - bond0
+              br-baremetal:
+                enabled: true
+                type: ovs_bridge
