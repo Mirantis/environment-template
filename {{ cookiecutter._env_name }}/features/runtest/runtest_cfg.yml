@@ -9,6 +9,7 @@ classes:
 {%- if default_context.get('opencontrail_enabled', 'False') == 'True' %}
 - system.neutron.client.service.contrail_public_v2
 {%- endif %}
+- service.runtest.tempest.tempest_net
 parameters:
   _param:
     image_host: http://172.19.112.216:8099

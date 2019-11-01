@@ -6,13 +6,17 @@ classes:
 {%- if default_context.get('barbican_enabled', 'False') == 'True' and default_context.get('barbican_integration_enabled', 'False') == 'True' %}
 - service.runtest.tempest.barbican
 {%- endif %}
+{%- if default_context.get('opencontrail_enabled', 'False') == 'True' %}
+- system.neutron.client.service.contrail_public_v2
+{%- endif %}
 parameters:
   _param:
     image_host: http://172.19.112.216:8099
     glance_image_cirros_location: ${_param:image_host}/cirros-0.4.0-x86_64-disk.img
     glance_image_fedora_location: ${_param:image_host}/Fedora-Cloud-Base-27-1.6.x86_64.qcow2
     glance_image_manila_location: ${_param:image_host}/manila-service-image-master.qcow2
-    tempest_test_target: gtw01*
+    glance_image_cirros_name: 'TestCirros-0.4.0'
+    tempest_test_target: cfg01*
     runtest_tempest_cfg_dir: /tmp/test
     runtest_tempest_cfg_name: tempest.conf
   runtest:
